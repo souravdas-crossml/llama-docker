@@ -1,0 +1,4 @@
+__pycache__
+.venv
+model
+model\llama-2-7b.Q2_K.gguf
