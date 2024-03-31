@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  fastapi:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - vector-db
+    environment:
+      - POSTGRES_HOST=localhost:5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+      - VECTOR_DB_HOST=vector-db
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  vector-db:
+    build:
+      context: ./faiss-docker
+      dockerfile: Dockerfile
+    container_name: vector-db
+    volumes:
+      - vector-db-data:/data
+
+volumes:
+  postgres-data:
+  vector-db-data:

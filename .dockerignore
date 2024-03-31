@@ -1,3 +1,6 @@
 __pycache__
 .venv
 readme.md
+docs/*
+llama_load_test.py
+faiss-docker/*
